@@ -1055,7 +1055,7 @@
       "widgets_values": {
         "frame_rate": 24,
         "loop_count": 0,
-        "filename_prefix": "OpenH3/T2VA_draft_768p",
+        "filename_prefix": "OpenH3/T2VA_final_2k",
         "format": "video/h264-mp4",
         "pix_fmt": "yuv420p",
         "crf": 12,
@@ -1086,7 +1086,7 @@
           "params": {}
         }
       },
-      "title": "Stage 1 output · 768P draft preview"
+      "title": "Stage 2 output · 2K final video"
     },
     {
       "id": 33,
@@ -1503,7 +1503,7 @@
       "widgets_values": {
         "frame_rate": 24,
         "loop_count": 0,
-        "filename_prefix": "OpenH3/T2VA_final_2k",
+        "filename_prefix": "OpenH3/T2VA_draft_768p",
         "format": "video/h264-mp4",
         "pix_fmt": "yuv420p",
         "crf": 12,
@@ -1551,7 +1551,7 @@
           }
         }
       },
-      "title": "Stage 2 output · 2K final video"
+      "title": "Stage 1 output · 768P draft preview"
     },
     {
       "id": 43,
