@@ -1,18 +1,54 @@
 # ComfyUI Open-H3-Regenerate-2K-IC
 
-ComfyUI nodes and a ready-to-run workflow for
+English | [简体中文](README.zh-CN.md)
+
+ComfyUI nodes and example workflows for
 [NVlabs/Sana · Open-H3-Regenerate-2K/IC](https://github.com/NVlabs/Sana/tree/sol-engine/models/Open-H3-Regenerate-2K/IC).
 
-The workflow takes a low-resolution MiniMax-H3 draft, keeps it as `<Video 1>` in
-Ref2VA context, upscales its latent with the official 3D latent upscaler, and
-regenerates a 2560×1440 clip with the official `up3` sigma grid.
+This repository contains both:
+
+1. **Text-to-video example** — text → 768P H3 draft → IC 2K refinement.
+2. **Draft-to-2K example** — existing 768P draft → IC 2K refinement.
 
 - GitHub: <https://github.com/slmonker/ComfyUI-OpenH3Regenerate2KIC>
 - Converted ComfyUI LoRA: <https://huggingface.co/slmonker/Open-H3-Regenerate-2K-IC-ComfyUI>
 - Upstream weights: <https://huggingface.co/Efficient-Large-Model/Open-H3-Regenerate-2K-IC>
 
+## Examples
+
+| Example | Workflow | Description |
+|---|---|---|
+| Text-to-video | [`examples/T2VA/regen2k_ic_T2VA.json`](examples/T2VA/regen2k_ic_T2VA.json) | Generates a 1344×768 draft from text, then refines it to 2560×1440 |
+| Draft-to-2K | [`workflows/open_h3_regenerate_2k_ic.json`](workflows/open_h3_regenerate_2k_ic.json) | Refines an existing 768P draft to 2560×1440 |
+
+The T2VA example has its own documentation:
+
+- English: [`examples/T2VA/README.md`](examples/T2VA/README.md)
+- 中文: [`examples/T2VA/README.zh-CN.md`](examples/T2VA/README.zh-CN.md)
+
+## Text-to-video pipeline
+
 ```text
-768P draft
+Text prompt
+  -> MiniMax-H3 Image-to-Video + DMAD 4-step LoRA
+  -> 1344×768 / 124 frames / 24 fps draft
+  -> decode draft video + draft audio
+  -> draft becomes <Video 1> in Ref2VA
+  -> official 3D latent upscaler
+  -> HyperFlow + LMS Sharp + Open-H3 IC LoRA
+  -> up3 3-step refinement
+  -> 2560×1440 final video
+```
+
+The T2VA workflow uses one text node that feeds both stages:
+
+- raw text into the H3 draft generator
+- official enhancement prefix + the same text into the IC Ref2VA stage
+
+## Draft-to-2K pipeline
+
+```text
+Existing 768P draft
   -> <Video 1> Ref2VA conditioning
   -> H3 VAE encode -> official 3D latent upscaler
   -> HyperFlow + LMS Sharp + IC LoRA
@@ -26,10 +62,11 @@ regenerates a 2560×1440 clip with the official `up3` sigma grid.
 | Path | Purpose |
 |---|---|
 | `nodes.py` | Four ComfyUI helper nodes |
-| `workflows/open_h3_regenerate_2k_ic.json` | Main 2560×1440 workflow |
-| `workflows/open_h3_regenerate_2k_ic_api.json` | API prompt payload |
+| `examples/T2VA/` | Full text-to-video example and bilingual docs |
+| `workflows/open_h3_regenerate_2k_ic.json` | Draft-to-2K UI workflow |
+| `workflows/open_h3_regenerate_2k_ic_api.json` | Draft-to-2K API payload |
 | `tools/convert_ic_lora.py` | Diffusers IC LoRA → ComfyUI generic LoRA |
-| `tools/build_workflow.py` | Rebuild the workflow JSON |
+| `tools/build_workflow.py` | Rebuild the draft-to-2K workflow |
 | `assets/silence_audio_124f.safetensors` | Official fixed-silence latent for the IC audio rows |
 | `tests/test_nodes.py` | Unit tests for preprocessing and sigma grids |
 
@@ -37,21 +74,17 @@ regenerates a 2560×1440 clip with the official `up3` sigma grid.
 
 ### Open-H3 IC · Prepare Draft (124f / 24fps)
 
-Matches the official draft preprocessing:
-
-- samples 124 frames at 24 fps from the source video
+- samples 124 frames at 24 fps
 - cover-resizes and center-crops to 1344×768
-- trims or pads the original audio using its real sample rate
+- trims or pads audio using its real sample rate
 - requires at least 113 real frames after resampling
 
 ### Open-H3 IC · Official Prompt
 
-Prepends the official task instruction and preserves the original MiniMax-H3
-caption as `Scene description`.
+Prepends the official enhancement task and preserves the source caption as
+`Scene description`.
 
 ### Open-H3 IC · Sigma Grid
-
-Provides the official grids:
 
 | Mode | Sigmas |
 |---|---|
@@ -62,8 +95,7 @@ Provides the official grids:
 ### Open-H3 IC · Compose Target Latent
 
 Combines the upscaled target video latent with the official 124-frame silence
-latent. The audio stream receives `noise_mask=0`, so its clean silence rows are
-preserved during sampling, matching the official IC sampler behavior.
+latent and pins the audio stream with `noise_mask=0`.
 
 ## Installation
 
@@ -74,18 +106,20 @@ git clone https://github.com/slmonker/ComfyUI-OpenH3Regenerate2KIC.git
 
 Restart ComfyUI after installation.
 
-The workflow also uses `LynnRealH3VAELoader` from `ComfyUI-LynnReal` for the
-fast H3 VAE decoder. If you do not want that dependency, replace the fast VAE loader and
-decode with the regular MiniMax-H3 video VAE.
+The T2VA example also uses:
 
-## Required models
+- `ComfyUI-LynnReal` — attention/feed-forward helpers
+- `ComfyUI-Spark-H3` — Sol-Attn sparse attention
+- `ComfyUI-VideoHelperSuite` — `VHS_VideoCombine`
+
+The draft-to-2K example uses `LynnRealH3VAELoader` for the fast H3 VAE decoder.
+
+## Common models
 
 Place these under `ComfyUI/models/`:
 
 ```text
 models/
-├── diffusion_models/
-│   └── minimax_h3_ref2va_bf16.safetensors
 ├── text_encoders/
 │   └── MiniMax-H3/qwen3vl_32b_minimax_h3_int8_convrot.safetensors
 ├── vae/
@@ -104,52 +138,52 @@ Download the converted IC LoRA from:
 
 <https://huggingface.co/slmonker/Open-H3-Regenerate-2K-IC-ComfyUI>
 
-Load the LoRAs in this exact order:
+Load the IC LoRAs in this order:
 
 1. HyperFlow 8-step
 2. LMS Sharp
 3. Open-H3 Regenerate 2K IC
 
-The other MiniMax-H3 components are available from
-[Comfy-Org/MiniMax-H3](https://huggingface.co/Comfy-Org/MiniMax-H3).
-
-## Workflow
-
-1. Put the 768P MiniMax-H3 draft into `ComfyUI/input/`.
-2. Open `workflows/open_h3_regenerate_2k_ic.json`.
-3. Select the draft in **Load Video**.
-4. Enter the original MiniMax-H3 prompt in **Open-H3 IC · Official Prompt**. An empty caption is valid.
-5. Run the graph. The output is saved through **Save Video** with the draft's original audio.
-
-The default is `up3`, CFG 1, 2560×1440, 124 frames at 24 fps.
-
-### 1080P variant
-
-Set both resolution-bearing nodes to `1920×1088`:
-
-- **MiniMax H3 Reference to Video**
-- **MiniMax H3 Latent Upscale With Model**
-
-The target latent is composed from the Ref2VA latent shape, so it follows
-automatically.
-
-For 4K use `3840×2176`; this is generally impractical on a 32 GB GPU.
-
-## Convert the official IC LoRA
-
-The official file uses Diffusers/PEFT keys on `transformer_ref`:
+### T2VA-only models
 
 ```text
-transformer.<module>.lora_A.weight
-transformer.<module>.lora_B.weight
+models/
+├── diffusion_models/
+│   └── minimax_h3_hybrid_fl2va_ref2va_b25-49-int8.safetensors/
+│       └── minimax_h3_hybrid_fl2va_ref2va_b25-49-int8.safetensors
+├── vae/MiniMax-H3/
+│   └── minimax_h3_audio_vae_fp32.safetensors
+└── loras/
+    └── dmad_minimax_h3_4step_full_critic_comfy.safetensors
 ```
 
-ComfyUI expects fused MiniMax-H3 keys. The converter performs:
+The hybrid FL2VA+Ref2VA checkpoint and DMAD LoRA come from the MiniMax-H3 /
+TaoMate-HD ecosystem. The hybrid checkpoint is not included in this repository.
 
-- q/k/v → `qkv_proj` with a block-diagonal B matrix
-- `ff.net.0.proj` SwiGLU rows from Diffusers `[value;gate]` to ComfyUI `[gate;value]`
-- `alpha = 3 × rank` for fused qkv; `alpha = rank` otherwise
-- optional BF16 output
+## Running the T2VA example
+
+1. Open `examples/T2VA/regen2k_ic_T2VA.json`.
+2. Edit **T2VA prompt · edit this text** once.
+3. Run the graph.
+4. The 768P draft preview and 2K final video are written under `ComfyUI/output/OpenH3/`.
+
+Default settings:
+
+- draft: 1344×768, 124 frames, 24 fps, DMAD 4-step
+- IC refinement: `up3`, CFG 1, 2560×1440
+
+## Running the draft-to-2K example
+
+1. Put an existing 768P draft into `ComfyUI/input/`.
+2. Open `workflows/open_h3_regenerate_2k_ic.json`.
+3. Select the draft in **Load Video**.
+4. Enter the original prompt in **Open-H3 IC · Official Prompt**.
+5. Run the graph.
+
+For 1080P, set both resolution-bearing nodes to `1920×1088`. For 4K use
+`3840×2176`, which is usually impractical on a 32 GB GPU.
+
+## Convert the official IC LoRA
 
 ```bash
 python tools/convert_ic_lora.py \
@@ -158,12 +192,19 @@ python tools/convert_ic_lora.py \
   --dtype bf16
 ```
 
-The released converted file has:
+Conversion details:
+
+- q/k/v → fused `qkv_proj` with block-diagonal B
+- `ff.net.0.proj` from Diffusers `[value;gate]` to ComfyUI `[gate;value]`
+- fused qkv `alpha = 3 × rank`
+- output BF16
+
+Released conversion:
 
 - 312 source linear layers
-- 208 fused ComfyUI modules
-- 624 tensors (`alpha`, `lora_A`, `lora_B`)
-- zero missing base-model key mappings
+- 208 ComfyUI modules
+- 624 tensors
+- zero missing base-model mappings
 
 ## Validation
 
@@ -171,23 +212,17 @@ The released converted file has:
 python -m unittest discover -s tests -v
 ```
 
-The included workflow was loaded by the ComfyUI frontend and converted with
-`graphToPrompt()` without errors:
+The draft-to-2K workflow loads in ComfyUI and converts through `graphToPrompt()`
+with zero input-schema errors. The converted LoRA was checked against
+`minimax_h3_ref2va_bf16.safetensors`.
 
-- 26 graph nodes
-- 30 links
-- 25 API prompt nodes
-- zero API input-schema errors
+## Notes
 
-The converted LoRA was also checked against
-`minimax_h3_ref2va_bf16.safetensors`: every target base weight exists.
-
-## Notes and limitations
-
-- Default clip length is 124 frames (about 5.17 seconds), matching the official IC examples.
-- The draft's audio is preserved; H3's generated audio is not used.
-- 2K on 32 GB VRAM requires ComfyUI model offload/low-VRAM attention handling. Use the pruned INT8 Ref2VA model and 1080P if memory is tight.
-- This is a community ComfyUI implementation, not an official MiniMax product.
+- Default clip length is 124 frames (about 5.17 seconds).
+- The T2VA example keeps H3-generated draft audio in stage 1.
+- The IC stage uses fixed silence internally and outputs the draft audio.
+- 2K on 32 GB VRAM requires model offload / low-VRAM attention handling.
+- This is a community implementation, not an official MiniMax product.
 
 ## Acknowledgements
 
@@ -199,5 +234,5 @@ The converted LoRA was also checked against
 
 ## License
 
-The node code is Apache-2.0. MiniMax-H3 weights and derivative assets remain
-subject to the MiniMax-H3 Community License. See `NOTICE.md`.
+Node code is Apache-2.0. MiniMax-H3 weights and derivative assets remain subject
+to the MiniMax-H3 Community License. See `NOTICE.md`.
