@@ -120,6 +120,12 @@ latent and pins the audio stream with `noise_mask=0`.
 
 ## Installation
 
+### ComfyUI Manager
+
+Search for **Open-H3 Regenerate 2K IC** in ComfyUI Manager, or install Registry ID `comfyui-open-h3-regenerate-2k-ic`.
+
+[Comfy Registry page](https://registry.comfy.org/nodes/comfyui-open-h3-regenerate-2k-ic)
+
 ```bash
 cd ComfyUI/custom_nodes
 git clone https://github.com/slmonker/ComfyUI-OpenH3Regenerate2KIC.git
