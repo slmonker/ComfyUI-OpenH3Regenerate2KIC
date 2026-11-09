@@ -1,0 +1,410 @@
+{
+  "1": {
+    "inputs": {
+      "file": "draft.mp4"
+    },
+    "class_type": "LoadVideo",
+    "_meta": {
+      "title": "Load MiniMax-H3 768P draft",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "2": {
+    "inputs": {
+      "video": [
+        "1",
+        0
+      ]
+    },
+    "class_type": "GetVideoComponents",
+    "_meta": {
+      "title": "获取视频元素",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "3": {
+    "inputs": {
+      "source_fps": [
+        "2",
+        2
+      ],
+      "target_width": 1344,
+      "target_height": 768,
+      "frame_count": 124,
+      "output_fps": 24,
+      "fit": "cover",
+      "audio_mode": "trim_pad",
+      "images": [
+        "2",
+        0
+      ],
+      "audio": [
+        "2",
+        1
+      ]
+    },
+    "class_type": "OpenH3ICDraft",
+    "_meta": {
+      "title": "Prepare Draft (official preprocessing)"
+    }
+  },
+  "4": {
+    "inputs": {
+      "vae_name": "MiniMax-H3\\minimax_h3_video_vae_fp16.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Official H3 video VAE (encode)",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "5": {
+    "inputs": {
+      "vae_name": "MiniMax-H3\\sol_h3_vae.safetensors",
+      "num_layers": 0,
+      "tile_size": 0,
+      "tile_overlap": 0,
+      "compile_decoder": true
+    },
+    "class_type": "LynnRealH3VAELoader",
+    "_meta": {
+      "title": "Fast H3 VAE decoder · official v2 24L"
+    }
+  },
+  "6": {
+    "inputs": {
+      "clip_name": "MiniMax-H3\\qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+      "type": "minimax",
+      "device": "default"
+    },
+    "class_type": "CLIPLoader",
+    "_meta": {
+      "title": "加载CLIP",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "7": {
+    "inputs": {
+      "unet_name": "minimax_h3_ref2va_bf16.safetensors",
+      "weight_dtype": "default"
+    },
+    "class_type": "UNETLoader",
+    "_meta": {
+      "title": "UNet加载器",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "8": {
+    "inputs": {
+      "lora_name": "minimax_h3_hyperflow_8step_v1.0_comfyui_bf16.safetensors",
+      "strength_model": 1,
+      "model": [
+        "7",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "1 · HyperFlow 8-step",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "9": {
+    "inputs": {
+      "lora_name": "minimax_h3_lms_v1.0_r64.safetensors",
+      "strength_model": 1,
+      "model": [
+        "8",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "2 · LMS Sharp",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "10": {
+    "inputs": {
+      "lora_name": "minimax_h3_open_regenerate_2k_ic_comfy_bf16.safetensors",
+      "strength_model": 1,
+      "model": [
+        "9",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "3 · Open-H3 Regenerate 2K IC",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "11": {
+    "inputs": {
+      "shift_video": 12,
+      "shift_audio": 3,
+      "model": [
+        "10",
+        0
+      ]
+    },
+    "class_type": "MiniMaxH3SigmaShift",
+    "_meta": {
+      "title": "ModelSamplingMiniMaxH3 (12 / 3)",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "12": {
+    "inputs": {
+      "caption": ""
+    },
+    "class_type": "OpenH3ICPrompt",
+    "_meta": {
+      "title": "Open-H3 IC · Official Prompt"
+    }
+  },
+  "13": {
+    "inputs": {
+      "prompt": [
+        "12",
+        0
+      ],
+      "width": 2560,
+      "height": 1440,
+      "length": 124,
+      "ref_image_size": "match",
+      "clip": [
+        "6",
+        0
+      ],
+      "vae": [
+        "4",
+        0
+      ],
+      "ref_videos.ref_video_0": [
+        "3",
+        0
+      ]
+    },
+    "class_type": "MiniMaxH3ReferenceToVideo",
+    "_meta": {
+      "title": "MiniMax H3 Ref2VA · draft = <Video 1>",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "14": {
+    "inputs": {
+      "pixels": [
+        "3",
+        0
+      ],
+      "vae": [
+        "4",
+        0
+      ]
+    },
+    "class_type": "VAEEncode",
+    "_meta": {
+      "title": "VAE编码",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "15": {
+    "inputs": {
+      "model_name": "minimax_h3_latent_upscaler_3d_conv_v1_bf16.safetensors"
+    },
+    "class_type": "LatentUpscaleModelLoader",
+    "_meta": {
+      "title": "加载Latent放大模型",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "16": {
+    "inputs": {
+      "width": 2560,
+      "height": 1440,
+      "model": [
+        "15",
+        0
+      ],
+      "samples": [
+        "14",
+        0
+      ]
+    },
+    "class_type": "MiniMaxH3LatentUpscaleWithModel",
+    "_meta": {
+      "title": "Upscale draft latent to 2560×1440",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "17": {
+    "inputs": {
+      "pin_audio": true,
+      "video_latent": [
+        "16",
+        0
+      ],
+      "reference_latent": [
+        "13",
+        1
+      ]
+    },
+    "class_type": "OpenH3ICComposeLatent",
+    "_meta": {
+      "title": "Compose target latent"
+    }
+  },
+  "18": {
+    "inputs": {
+      "sampler": "up3",
+      "custom_sigmas": ""
+    },
+    "class_type": "OpenH3ICSigmas",
+    "_meta": {
+      "title": "Open-H3 IC · Sigma Grid"
+    }
+  },
+  "19": {
+    "inputs": {
+      "noise_seed": 42
+    },
+    "class_type": "RandomNoise",
+    "_meta": {
+      "title": "随机噪波",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "20": {
+    "inputs": {
+      "model": [
+        "11",
+        0
+      ],
+      "conditioning": [
+        "13",
+        0
+      ]
+    },
+    "class_type": "BasicGuider",
+    "_meta": {
+      "title": "基本引导器",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "21": {
+    "inputs": {
+      "sampler_name": "euler"
+    },
+    "class_type": "KSamplerSelect",
+    "_meta": {
+      "title": "K采样器选择",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "22": {
+    "inputs": {
+      "noise": [
+        "19",
+        0
+      ],
+      "guider": [
+        "20",
+        0
+      ],
+      "sampler": [
+        "21",
+        0
+      ],
+      "sigmas": [
+        "18",
+        0
+      ],
+      "latent_image": [
+        "17",
+        0
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "IC 3-step refine · CFG 1",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "23": {
+    "inputs": {
+      "samples": [
+        "22",
+        0
+      ],
+      "vae": [
+        "5",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE解码",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "24": {
+    "inputs": {
+      "fps": 24,
+      "bit_depth": 8,
+      "color_space": "sRGB",
+      "chroma_subsampling": "auto",
+      "codec": "none",
+      "images": [
+        "23",
+        0
+      ],
+      "audio": [
+        "3",
+        1
+      ]
+    },
+    "class_type": "CreateVideo",
+    "_meta": {
+      "title": "Mux refined video + draft audio",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "25": {
+    "inputs": {
+      "filename_prefix": "video/OpenH3-Regenerate-2K-IC",
+      "format": "auto",
+      "format.codec": "auto",
+      "codec": "auto",
+      "video": [
+        "24",
+        0
+      ]
+    },
+    "class_type": "SaveVideo",
+    "_meta": {
+      "title": "保存视频",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  }
+}
