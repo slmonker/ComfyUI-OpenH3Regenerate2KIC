@@ -14,6 +14,31 @@ This repository contains both:
 - Converted ComfyUI LoRA: <https://huggingface.co/slmonker/Open-H3-Regenerate-2K-IC-ComfyUI>
 - Upstream weights: <https://huggingface.co/Efficient-Large-Model/Open-H3-Regenerate-2K-IC>
 
+
+## Demo videos
+
+Each comparison shows the **768P draft on the left** and the **2K IC result on the right**. Click a preview to open the final MP4.
+
+### Demo 1
+
+[![Demo 1](demo/demo_01.jpg)](https://github.com/slmonker/ComfyUI-OpenH3Regenerate2KIC/releases/download/demo-videos/Regen2KIC_00002-audio.mp4)
+
+[Draft MP4](https://github.com/slmonker/ComfyUI-OpenH3Regenerate2KIC/releases/download/demo-videos/768p_00001-audio.mp4) · [2K MP4](https://github.com/slmonker/ComfyUI-OpenH3Regenerate2KIC/releases/download/demo-videos/Regen2KIC_00002-audio.mp4)
+
+### Demo 2
+
+[![Demo 2](demo/demo_02.jpg)](https://github.com/slmonker/ComfyUI-OpenH3Regenerate2KIC/releases/download/demo-videos/Regen2KIC_00003-audio.mp4)
+
+[Draft MP4](https://github.com/slmonker/ComfyUI-OpenH3Regenerate2KIC/releases/download/demo-videos/768p_00002-audio.mp4) · [2K MP4](https://github.com/slmonker/ComfyUI-OpenH3Regenerate2KIC/releases/download/demo-videos/Regen2KIC_00003-audio.mp4)
+
+### Demo 3
+
+[![Demo 3](demo/demo_03.jpg)](https://github.com/slmonker/ComfyUI-OpenH3Regenerate2KIC/releases/download/demo-videos/Regen2KIC_00004-audio.mp4)
+
+[Draft MP4](https://github.com/slmonker/ComfyUI-OpenH3Regenerate2KIC/releases/download/demo-videos/768p_00004-audio.mp4) · [2K MP4](https://github.com/slmonker/ComfyUI-OpenH3Regenerate2KIC/releases/download/demo-videos/Regen2KIC_00004-audio.mp4)
+
+[Open the demo release](https://github.com/slmonker/ComfyUI-OpenH3Regenerate2KIC/releases/tag/demo-videos)
+
 ## Examples
 
 | Example | Workflow | Description |

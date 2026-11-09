@@ -14,6 +14,31 @@
 - 转换后的 ComfyUI LoRA：<https://huggingface.co/slmonker/Open-H3-Regenerate-2K-IC-ComfyUI>
 - 官方上游权重：<https://huggingface.co/Efficient-Large-Model/Open-H3-Regenerate-2K-IC>
 
+
+## Demo 视频
+
+每组对比图左侧是 **768P 草稿**，右侧是 **2K IC 成片**。点击预览图可打开最终 MP4。
+
+### Demo 1
+
+[![Demo 1](demo/demo_01.jpg)](https://github.com/slmonker/ComfyUI-OpenH3Regenerate2KIC/releases/download/demo-videos/Regen2KIC_00002-audio.mp4)
+
+[草稿 MP4](https://github.com/slmonker/ComfyUI-OpenH3Regenerate2KIC/releases/download/demo-videos/768p_00001-audio.mp4) · [2K MP4](https://github.com/slmonker/ComfyUI-OpenH3Regenerate2KIC/releases/download/demo-videos/Regen2KIC_00002-audio.mp4)
+
+### Demo 2
+
+[![Demo 2](demo/demo_02.jpg)](https://github.com/slmonker/ComfyUI-OpenH3Regenerate2KIC/releases/download/demo-videos/Regen2KIC_00003-audio.mp4)
+
+[草稿 MP4](https://github.com/slmonker/ComfyUI-OpenH3Regenerate2KIC/releases/download/demo-videos/768p_00002-audio.mp4) · [2K MP4](https://github.com/slmonker/ComfyUI-OpenH3Regenerate2KIC/releases/download/demo-videos/Regen2KIC_00003-audio.mp4)
+
+### Demo 3
+
+[![Demo 3](demo/demo_03.jpg)](https://github.com/slmonker/ComfyUI-OpenH3Regenerate2KIC/releases/download/demo-videos/Regen2KIC_00004-audio.mp4)
+
+[草稿 MP4](https://github.com/slmonker/ComfyUI-OpenH3Regenerate2KIC/releases/download/demo-videos/768p_00004-audio.mp4) · [2K MP4](https://github.com/slmonker/ComfyUI-OpenH3Regenerate2KIC/releases/download/demo-videos/Regen2KIC_00004-audio.mp4)
+
+[打开 Demo Release](https://github.com/slmonker/ComfyUI-OpenH3Regenerate2KIC/releases/tag/demo-videos)
+
 ## 示例工作流
 
 | 示例 | 工作流 | 说明 |
