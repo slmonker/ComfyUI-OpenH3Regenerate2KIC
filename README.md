@@ -19,12 +19,9 @@ This repository contains both:
 | Example | Workflow | Description |
 |---|---|---|
 | Text-to-video | [`workflows/regen2k_ic_T2VA.json`](workflows/regen2k_ic_T2VA.json) | Generates a 1344×768 draft from text, then refines it to 2560×1440 |
+| Reference-to-video | [`workflows/H3_regen2k_ic_Ref2va.json`](workflows/H3_regen2k_ic_Ref2va.json) | Enhances a reference image into a 768P Ref2VA draft, then refines it to 2560×1440 |
 | Draft-to-2K | [`workflows/open_h3_regenerate_2k_ic.json`](workflows/open_h3_regenerate_2k_ic.json) | Refines an existing 768P draft to 2560×1440 |
 
-The T2VA example has its own documentation:
-
-- English: [`examples/T2VA/README.md`](examples/T2VA/README.md)
-- 中文: [`examples/T2VA/README.zh-CN.md`](examples/T2VA/README.zh-CN.md)
 
 ## Text-to-video pipeline
 
@@ -62,7 +59,6 @@ Existing 768P draft
 | Path | Purpose |
 |---|---|
 | `nodes.py` | Four ComfyUI helper nodes |
-| `examples/T2VA/` | Full text-to-video example and bilingual docs |
 | `workflows/open_h3_regenerate_2k_ic.json` | Draft-to-2K UI workflow |
 | `workflows/open_h3_regenerate_2k_ic_api.json` | Draft-to-2K API payload |
 | `tools/convert_ic_lora.py` | Diffusers IC LoRA → ComfyUI generic LoRA |

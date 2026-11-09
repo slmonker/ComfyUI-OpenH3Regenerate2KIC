@@ -1,0 +1,639 @@
+{
+  "1": {
+    "inputs": {
+      "prompt": "A cinematic medium shot of the person in the reference image, preserving face, clothing, hairstyle, and identity. The camera slowly pushes in as the person looks toward the lens and says in Mandarin: \"你好，欢迎来到这片竹林。\" Soft wind, detailed fabric and hair.\n\noverall_soundscape: Gentle wind, distant birds, and a clear natural voice.\n\nnon_diegetic_music: A restrained guzheng melody with a warm cinematic atmosphere.",
+      "skill": "auto",
+      "duration": [
+        "13",
+        0
+      ],
+      "llm_model": "Huihui-Qwen3.8-27B-abliterated-Q4_K.gguf",
+      "vision_model": "mmproj-F16.gguf",
+      "think_mode": false,
+      "reasoning_effort": "medium",
+      "seed": 666,
+      "max_tokens": 8192,
+      "video_sample_frames_per_sec": 2,
+      "force_unload_model": true,
+      "reference_images.reference_image_0": [
+        "37",
+        0
+      ]
+    },
+    "class_type": "QwenH3PromptLocal",
+    "_meta": {
+      "title": "Prompt enhancer · edit prompt here",
+      "cnr_id": "qwen-h3-prompt",
+      "ver": "f8ea17991ea39111ef2b2ebdf6ccb631e21e0300"
+    }
+  },
+  "2": {
+    "inputs": {
+      "clip_name": "MiniMax-H3\\qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+      "type": "minimax",
+      "device": "default"
+    },
+    "class_type": "CLIPLoader",
+    "_meta": {
+      "title": "加载CLIP",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "3": {
+    "inputs": {
+      "caption": [
+        "1",
+        0
+      ]
+    },
+    "class_type": "OpenH3ICPrompt",
+    "_meta": {
+      "title": "Open-H3 IC · Official Prompt"
+    }
+  },
+  "4": {
+    "inputs": {
+      "unet_name": "minimax_h3_hybrid_fl2va_ref2va_b25-49-int8.safetensors\\minimax_h3_hybrid_fl2va_ref2va_b25-49-int8.safetensors",
+      "weight_dtype": "default"
+    },
+    "class_type": "UNETLoader",
+    "_meta": {
+      "title": "UNet加载器",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "5": {
+    "inputs": {
+      "selection": "sol-attn",
+      "selection.tau": 1.3,
+      "start_percent": 0.2,
+      "end_percent": 1,
+      "dense_blocks": "",
+      "min_tokens": 12288,
+      "extra_tokens": 256,
+      "sink_conditioning": "exact_kv_and_rows",
+      "verbose": false,
+      "model": [
+        "10",
+        0
+      ]
+    },
+    "class_type": "BlockSparseAttention",
+    "_meta": {
+      "title": "Sol-Attn sparse attention",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "6": {
+    "inputs": {
+      "attention": "comfy kitchen attention",
+      "model": [
+        "4",
+        0
+      ]
+    },
+    "class_type": "ModelAttentionBackend",
+    "_meta": {
+      "title": "Attention backend · Comfy kitchen",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "8": {
+    "inputs": {
+      "conditioning": [
+        "36",
+        0
+      ]
+    },
+    "class_type": "ConditioningZeroOut",
+    "_meta": {
+      "title": "条件零化",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "9": {
+    "inputs": {
+      "aspect_ratio": "16:9 (Widescreen)",
+      "megapixels": 0.98,
+      "multiple": 32
+    },
+    "class_type": "ResolutionSelector",
+    "_meta": {
+      "title": "Resolution Selector (Size)",
+      "cnr_id": "comfy-core",
+      "ver": "0.30.0"
+    }
+  },
+  "10": {
+    "inputs": {
+      "chunks": 2,
+      "seq_threshold": 4096,
+      "model": [
+        "6",
+        0
+      ]
+    },
+    "class_type": "MiniMaxChunkFeedForward",
+    "_meta": {
+      "title": "Chunked feed-forward"
+    }
+  },
+  "11": {
+    "inputs": {
+      "lora_name": "dmad_minimax_h3_4step_full_critic_comfy.safetensors",
+      "strength_model": 1,
+      "model": [
+        "5",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "1 · DMAD 4-step draft LoRA",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "12": {
+    "inputs": {
+      "seed": 666,
+      "steps": 4,
+      "cfg": 1,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 1,
+      "model": [
+        "11",
+        0
+      ],
+      "positive": [
+        "36",
+        0
+      ],
+      "negative": [
+        "8",
+        0
+      ],
+      "latent_image": [
+        "36",
+        1
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "K采样器",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "13": {
+    "inputs": {
+      "value": 5
+    },
+    "class_type": "PrimitiveFloat",
+    "_meta": {
+      "title": "Float (Duration)",
+      "cnr_id": "comfy-core",
+      "ver": "0.30.0"
+    }
+  },
+  "14": {
+    "inputs": {
+      "lora_name": "minimax_h3_lms_v1.0_r64.safetensors",
+      "strength_model": 1,
+      "model": [
+        "11",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "2 · LMS Sharp",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "15": {
+    "inputs": {
+      "lora_name": "minimax_h3_open_regenerate_2k_ic_comfy_bf16.safetensors",
+      "strength_model": 1,
+      "model": [
+        "14",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "3 · Open-H3 Regenerate 2K IC",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "16": {
+    "inputs": {
+      "samples": [
+        "12",
+        0
+      ],
+      "vae": [
+        "31",
+        0
+      ]
+    },
+    "class_type": "VAEDecodeAudio",
+    "_meta": {
+      "title": "VAE解码（音频）",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "17": {
+    "inputs": {
+      "samples": [
+        "12",
+        0
+      ],
+      "vae": [
+        "21",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE解码",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "19": {
+    "inputs": {
+      "expression": "max(5, round(a * 24)) + (5 - (max(5, round(a * 24)) % 17)) % 17",
+      "values.a": [
+        "13",
+        0
+      ]
+    },
+    "class_type": "ComfyMathExpression",
+    "_meta": {
+      "title": "数学表达式",
+      "cnr_id": "comfy-core",
+      "ver": "0.30.0"
+    }
+  },
+  "20": {
+    "inputs": {
+      "source_fps": 24,
+      "target_width": [
+        "9",
+        0
+      ],
+      "target_height": [
+        "9",
+        1
+      ],
+      "frame_count": [
+        "19",
+        1
+      ],
+      "output_fps": 24,
+      "fit": "cover",
+      "audio_mode": "passthrough",
+      "images": [
+        "17",
+        0
+      ],
+      "audio": [
+        "16",
+        0
+      ]
+    },
+    "class_type": "OpenH3ICDraft",
+    "_meta": {
+      "title": "Prepare Draft (official preprocessing)"
+    }
+  },
+  "21": {
+    "inputs": {
+      "vae_name": "MiniMax-H3\\minimax_h3_video_vae_fp16.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Official H3 video VAE",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "22": {
+    "inputs": {
+      "prompt": [
+        "1",
+        0
+      ],
+      "width": 2560,
+      "height": 1440,
+      "length": [
+        "19",
+        1
+      ],
+      "ref_image_size": "match",
+      "clip": [
+        "2",
+        0
+      ],
+      "vae": [
+        "21",
+        0
+      ],
+      "audio_vae": [
+        "31",
+        0
+      ],
+      "ref_images.ref_image_0": [
+        "37",
+        0
+      ],
+      "ref_videos.ref_video_0": [
+        "20",
+        0
+      ]
+    },
+    "class_type": "MiniMaxH3ReferenceToVideo",
+    "_meta": {
+      "title": "Stage 2 · Ref2VA with draft <Video 1>",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "23": {
+    "inputs": {
+      "model_name": "minimax_h3_latent_upscaler_3d_conv_v1_bf16.safetensors"
+    },
+    "class_type": "LatentUpscaleModelLoader",
+    "_meta": {
+      "title": "加载Latent放大模型",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "24": {
+    "inputs": {
+      "width": 2560,
+      "height": 1440,
+      "model": [
+        "23",
+        0
+      ],
+      "samples": [
+        "12",
+        0
+      ]
+    },
+    "class_type": "MiniMaxH3LatentUpscaleWithModel",
+    "_meta": {
+      "title": "Upscale draft latent to 2560×1440",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "25": {
+    "inputs": {
+      "pin_audio": true,
+      "video_latent": [
+        "24",
+        0
+      ],
+      "reference_latent": [
+        "22",
+        1
+      ]
+    },
+    "class_type": "OpenH3ICComposeLatent",
+    "_meta": {
+      "title": "Compose target latent"
+    }
+  },
+  "26": {
+    "inputs": {
+      "sampler": "up3",
+      "custom_sigmas": ""
+    },
+    "class_type": "OpenH3ICSigmas",
+    "_meta": {
+      "title": "Open-H3 IC · Sigma Grid"
+    }
+  },
+  "27": {
+    "inputs": {
+      "noise_seed": 42
+    },
+    "class_type": "RandomNoise",
+    "_meta": {
+      "title": "随机噪波",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "28": {
+    "inputs": {
+      "model": [
+        "15",
+        0
+      ],
+      "conditioning": [
+        "22",
+        0
+      ]
+    },
+    "class_type": "BasicGuider",
+    "_meta": {
+      "title": "基本引导器",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "29": {
+    "inputs": {
+      "sampler_name": "euler"
+    },
+    "class_type": "KSamplerSelect",
+    "_meta": {
+      "title": "K采样器选择",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "31": {
+    "inputs": {
+      "vae_name": "MiniMax-H3\\minimax_h3_audio_vae_fp32.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Official H3 audio VAE",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "32": {
+    "inputs": {
+      "samples": [
+        "39",
+        0
+      ],
+      "vae": [
+        "21",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE解码",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "34": {
+    "inputs": {
+      "frame_rate": 24,
+      "loop_count": 0,
+      "filename_prefix": "OpenH3/Ref2VA_draft_768p",
+      "format": "video/h264-mp4",
+      "pix_fmt": "yuv420p",
+      "crf": 12,
+      "save_metadata": true,
+      "trim_to_audio": false,
+      "pingpong": false,
+      "save_output": true,
+      "images": [
+        "17",
+        0
+      ],
+      "audio": [
+        "16",
+        0
+      ]
+    },
+    "class_type": "VHS_VideoCombine",
+    "_meta": {
+      "title": "Stage 1 output · 768P draft",
+      "cnr_id": "comfyui-videohelpersuite",
+      "ver": "1.7.9"
+    }
+  },
+  "35": {
+    "inputs": {
+      "frame_rate": 24,
+      "loop_count": 0,
+      "filename_prefix": "OpenH3/Ref2VA_final_2k",
+      "format": "video/h264-mp4",
+      "pix_fmt": "yuv420p",
+      "crf": 12,
+      "save_metadata": true,
+      "trim_to_audio": false,
+      "pingpong": false,
+      "save_output": true,
+      "images": [
+        "32",
+        0
+      ],
+      "audio": [
+        "20",
+        1
+      ]
+    },
+    "class_type": "VHS_VideoCombine",
+    "_meta": {
+      "title": "Stage 2 output · 2K final video",
+      "cnr_id": "comfyui-videohelpersuite",
+      "ver": "1.7.9"
+    }
+  },
+  "36": {
+    "inputs": {
+      "prompt": [
+        "3",
+        0
+      ],
+      "width": [
+        "9",
+        0
+      ],
+      "height": [
+        "9",
+        1
+      ],
+      "length": [
+        "19",
+        1
+      ],
+      "ref_image_size": "max",
+      "clip": [
+        "2",
+        0
+      ],
+      "vae": [
+        "21",
+        0
+      ],
+      "audio_vae": [
+        "31",
+        0
+      ],
+      "ref_images.ref_image_0": [
+        "37",
+        0
+      ]
+    },
+    "class_type": "MiniMaxH3ReferenceToVideo",
+    "_meta": {
+      "title": "Stage 1 · Ref2VA draft generation",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "37": {
+    "inputs": {
+      "image": "011f89fb7874acc4bf4c8702352baefb.png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Reference image",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  },
+  "39": {
+    "inputs": {
+      "noise": [
+        "27",
+        0
+      ],
+      "guider": [
+        "28",
+        0
+      ],
+      "sampler": [
+        "29",
+        0
+      ],
+      "sigmas": [
+        "26",
+        0
+      ],
+      "latent_image": [
+        "25",
+        0
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "IC 3-step refine · CFG 1",
+      "cnr_id": "comfy-core",
+      "ver": "0.44.0"
+    }
+  }
+}

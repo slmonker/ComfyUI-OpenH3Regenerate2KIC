@@ -1621,7 +1621,7 @@
         "Node name for S&R": "Note"
       },
       "widgets_values": [
-        "# Open-H3-Regenerate-2K-IC · Text-to-Video\n\nEdit **T2VA prompt · edit this text** once. It feeds both stages:\n\n1. **Text → 768P draft**: H3 Image-to-Video + DMAD 4-step LoRA, 1344×768, 124 frames.\n2. **Draft → 2K IC refine**: Ref2VA + latent upscaler + HyperFlow/LMS Sharp/IC LoRA, 2560×1440.\n\nRequired model: `minimax_h3_hybrid_fl2va_ref2va_b25-49-int8.safetensors`\nRequired nodes: ComfyUI-LynnReal, ComfyUI-Spark-H3, VideoHelperSuite.\n\n---\n\n# 中文说明\n\n只需要修改 **T2VA prompt · edit this text** 一个提示词节点。\n\n第一阶段：文生视频生成 1344×768、124 帧草稿。  \n第二阶段：IC 2K 精修到 2560×1440，并输出最终视频。\n\n模型、节点和安装说明见仓库 `examples/T2VA/README.zh-CN.md`。"
+        "# Open-H3-Regenerate-2K-IC · Text-to-Video\n\nEdit **T2VA prompt · edit this text** once. It feeds both stages:\n\n1. **Text → 768P draft**: H3 Image-to-Video + DMAD 4-step LoRA, 1344×768, 124 frames.\n2. **Draft → 2K IC refine**: Ref2VA + latent upscaler + HyperFlow/LMS Sharp/IC LoRA, 2560×1440.\n\nRequired model: `minimax_h3_hybrid_fl2va_ref2va_b25-49-int8.safetensors`\nRequired nodes: ComfyUI-LynnReal, ComfyUI-Spark-H3, VideoHelperSuite.\n\n---\n\n# 中文说明\n\n只需要修改 **T2VA prompt · edit this text** 一个提示词节点。\n\n第一阶段：文生视频生成 1344×768、124 帧草稿。  \n第二阶段：IC 2K 精修到 2560×1440，并输出最终视频。\n\n模型、节点和安装说明见仓库 `README.zh-CN.md`。"
       ]
     }
   ],

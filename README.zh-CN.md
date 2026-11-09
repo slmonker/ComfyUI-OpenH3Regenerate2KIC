@@ -19,12 +19,9 @@
 | 示例 | 工作流 | 说明 |
 |---|---|---|
 | 文生视频 | [`workflows/regen2k_ic_T2VA.json`](workflows/regen2k_ic_T2VA.json) | 先用文本生成 1344×768 草稿，再精修到 2560×1440 |
+| 参考图生视频 | [`workflows/H3_regen2k_ic_Ref2va.json`](workflows/H3_regen2k_ic_Ref2va.json) | 参考图生成 768P Ref2VA 草稿，再精修到 2560×1440 |
 | 草稿转 2K | [`workflows/open_h3_regenerate_2k_ic.json`](workflows/open_h3_regenerate_2k_ic.json) | 将已有 768P 草稿精修到 2560×1440 |
 
-文生视频示例说明：
-
-- 英文：[`examples/T2VA/README.md`](examples/T2VA/README.md)
-- 中文：[`examples/T2VA/README.zh-CN.md`](examples/T2VA/README.zh-CN.md)
 
 ## 文生视频流程
 
@@ -62,7 +59,6 @@ T2VA 工作流只使用一个文本输入节点，同时供两个阶段使用：
 | 路径 | 作用 |
 |---|---|
 | `nodes.py` | 4 个 ComfyUI 配套节点 |
-| `examples/T2VA/` | 完整文生视频示例和双语说明 |
 | `workflows/open_h3_regenerate_2k_ic.json` | 草稿转 2K UI 工作流 |
 | `workflows/open_h3_regenerate_2k_ic_api.json` | 草稿转 2K API 工作流 |
 | `tools/convert_ic_lora.py` | Diffusers IC LoRA → ComfyUI 通用 LoRA |
