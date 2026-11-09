@@ -18,7 +18,7 @@ This repository contains both:
 
 | Example | Workflow | Description |
 |---|---|---|
-| Text-to-video | [`examples/T2VA/regen2k_ic_T2VA.json`](examples/T2VA/regen2k_ic_T2VA.json) | Generates a 1344×768 draft from text, then refines it to 2560×1440 |
+| Text-to-video | [`workflows/regen2k_ic_T2VA.json`](workflows/regen2k_ic_T2VA.json) | Generates a 1344×768 draft from text, then refines it to 2560×1440 |
 | Draft-to-2K | [`workflows/open_h3_regenerate_2k_ic.json`](workflows/open_h3_regenerate_2k_ic.json) | Refines an existing 768P draft to 2560×1440 |
 
 The T2VA example has its own documentation:
@@ -162,7 +162,7 @@ TaoMate-HD ecosystem. The hybrid checkpoint is not included in this repository.
 
 ## Running the T2VA example
 
-1. Open `examples/T2VA/regen2k_ic_T2VA.json`.
+1. Open `workflows/regen2k_ic_T2VA.json`.
 2. Edit **T2VA prompt · edit this text** once.
 3. Run the graph.
 4. The 768P draft preview and 2K final video are written under `ComfyUI/output/OpenH3/`.

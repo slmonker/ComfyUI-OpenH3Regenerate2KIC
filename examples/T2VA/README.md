@@ -4,9 +4,9 @@ English | [简体中文](README.zh-CN.md)
 
 This is the full **text-to-video** example workflow:
 
-[`regen2k_ic_T2VA.json`](regen2k_ic_T2VA.json)
+[`regen2k_ic_T2VA.json`](../../workflows/regen2k_ic_T2VA.json)
 
-API payload: [`regen2k_ic_T2VA_api.json`](regen2k_ic_T2VA_api.json)
+API payload: [`regen2k_ic_T2VA_api.json`](../../workflows/regen2k_ic_T2VA_api.json)
 
 It generates a 768P MiniMax-H3 draft from text, then automatically refines the
 same clip to 2K with Open-H3-Regenerate-2K-IC.
@@ -102,7 +102,7 @@ TaoMate-HD ecosystem. The hybrid checkpoint is not included in this repository.
 
 ## Run
 
-1. Open `regen2k_ic_T2VA.json` in ComfyUI.
+1. Open `../../workflows/regen2k_ic_T2VA.json` in ComfyUI.
 2. Edit **T2VA prompt · edit this text**.
 3. Run the graph.
 4. Outputs are written to:

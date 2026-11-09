@@ -4,9 +4,9 @@
 
 这是完整的**文生视频**示例工作流：
 
-[`regen2k_ic_T2VA.json`](regen2k_ic_T2VA.json)
+[`regen2k_ic_T2VA.json`](../../workflows/regen2k_ic_T2VA.json)
 
-API 工作流：[`regen2k_ic_T2VA_api.json`](regen2k_ic_T2VA_api.json)
+API 工作流：[`regen2k_ic_T2VA_api.json`](../../workflows/regen2k_ic_T2VA_api.json)
 
 它会先用文本生成 768P MiniMax-H3 草稿，再自动使用
 Open-H3-Regenerate-2K-IC 将同一视频精修到 2K。
@@ -102,7 +102,7 @@ hybrid 模型不在本仓库内。
 
 ## 运行
 
-1. 在 ComfyUI 中打开 `regen2k_ic_T2VA.json`。
+1. 在 ComfyUI 中打开 `../../workflows/regen2k_ic_T2VA.json`。
 2. 修改 **T2VA prompt · edit this text**。
 3. 运行工作流。
 4. 输出位置：

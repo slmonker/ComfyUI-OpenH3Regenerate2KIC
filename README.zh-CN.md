@@ -18,7 +18,7 @@
 
 | 示例 | 工作流 | 说明 |
 |---|---|---|
-| 文生视频 | [`examples/T2VA/regen2k_ic_T2VA.json`](examples/T2VA/regen2k_ic_T2VA.json) | 先用文本生成 1344×768 草稿，再精修到 2560×1440 |
+| 文生视频 | [`workflows/regen2k_ic_T2VA.json`](workflows/regen2k_ic_T2VA.json) | 先用文本生成 1344×768 草稿，再精修到 2560×1440 |
 | 草稿转 2K | [`workflows/open_h3_regenerate_2k_ic.json`](workflows/open_h3_regenerate_2k_ic.json) | 将已有 768P 草稿精修到 2560×1440 |
 
 文生视频示例说明：
@@ -161,7 +161,7 @@ hybrid 模型不在本仓库内。
 
 ## 运行文生视频示例
 
-1. 打开 `examples/T2VA/regen2k_ic_T2VA.json`。
+1. 打开 `workflows/regen2k_ic_T2VA.json`。
 2. 只修改 **T2VA prompt · edit this text** 一个提示词节点。
 3. 运行工作流。
 4. 768P 草稿预览和 2K 最终视频输出到 `ComfyUI/output/OpenH3/`。
