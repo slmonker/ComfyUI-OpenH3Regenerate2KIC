@@ -1,10 +1,24 @@
 [project]
 name = "comfyui-open-h3-regenerate-2k-ic"
 version = "0.1.0"
-description = "ComfyUI companion nodes and workflow for Open-H3-Regenerate-2K-IC"
+description = "ComfyUI nodes and workflows for Open-H3-Regenerate-2K-IC draft-to-2K video refinement"
 readme = "README.md"
 requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "slmonker" }]
+keywords = ["comfyui", "open-h3", "minimax-h3", "video", "super-resolution", "2k"]
+classifiers = [
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Topic :: Multimedia :: Video",
+]
 dependencies = []
 
+[project.urls]
+Repository = "https://github.com/slmonker/ComfyUI-OpenH3Regenerate2KIC"
+Documentation = "https://github.com/slmonker/ComfyUI-OpenH3Regenerate2KIC#readme"
+"Bug Tracker" = "https://github.com/slmonker/ComfyUI-OpenH3Regenerate2KIC/issues"
+
 [tool.comfy]
+PublisherId = "slmonker"
 DisplayName = "Open-H3 Regenerate 2K IC"
